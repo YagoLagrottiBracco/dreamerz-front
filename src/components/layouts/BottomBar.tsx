@@ -9,10 +9,10 @@ export default class BottomBar extends Component {
             <Navbar
                 expand="lg"
                 fixed="bottom"
-                className="bg-body-tertiary justify-content-center">
+                className="bg-primary bg-gradient justify-content-center text-center">
                 <Row>
                     <Col>
-                        <NavbarText>
+                        <NavbarText className="text-light">
                             Made with{" "}
                             <FontAwesomeIcon
                                 icon={faHeart}
@@ -21,7 +21,7 @@ export default class BottomBar extends Component {
                             by Yago Lagrotti Bracco
                         </NavbarText>
                         <NavLink href="">
-                            <NavbarText>
+                            <NavbarText className="text-light">
                                 Clique aqui para ver o repositório
                             </NavbarText>
                         </NavLink>

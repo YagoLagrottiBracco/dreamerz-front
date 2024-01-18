@@ -14,16 +14,26 @@ import {
 export default class TopBar extends Component {
     render() {
         return (
-            <Navbar expand="lg" className="bg-body-tertiary" fixed="top">
+            <Navbar expand="lg" className="bg-primary bg-gradient" fixed="top">
                 <Container>
-                    <NavbarBrand href="#home">
-                        <FontAwesomeIcon icon={faBullseye} /> DreamerZ
+                    <NavbarBrand href="#home" className="text-light">
+                        <FontAwesomeIcon
+                            icon={faBullseye}
+                            className="text-danger"
+                        />{" "}
+                        DreamerZ
                     </NavbarBrand>
-                    <NavbarToggle aria-controls="navbar-nav" />
-                    <NavbarCollapse id="navbar-nav">
-                        <Nav className="me-auto">
+                    <NavbarToggle aria-controls="navbar-nav"/>
+                    <NavbarCollapse
+                        id="navbar-nav"
+                        className="justify-content-end">
+                        <Nav className="ml-auto">
                             <NavDropdown
-                                title="Olá #COLOCAR-NOME-DE-USUÁRIO"
+                                title={
+                                    <span className="text-light">
+                                        Olá #COLOCAR-NOME-DE-USUÁRIO
+                                    </span>
+                                }
                                 id="nav-dropdown">
                                 <NavDropdown.Item href="#action/3.2">
                                     Editar Perfil
