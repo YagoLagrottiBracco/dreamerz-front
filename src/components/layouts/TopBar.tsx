@@ -15,6 +15,9 @@ import { useAuthContext } from "../../context/UserContext"
 
 const TopBar = () => {
     const { authenticated, logout } = useAuthContext()
+    const name: string | null = JSON.parse(
+        localStorage.getItem("name") || "null"
+    )
 
     return (
         <Navbar expand="lg" className="bg-primary bg-gradient" fixed="top">
@@ -36,7 +39,8 @@ const TopBar = () => {
                                 <NavDropdown
                                     title={
                                         <span className="text-light">
-                                            Olá #COLOCAR-NOME-DE-USUÁRIO
+                                            Olá{" "}
+                                            <span className="h6">{name}</span>
                                         </span>
                                     }
                                     id="nav-dropdown">

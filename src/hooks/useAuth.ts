@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import api from "../utils/api"
 
 interface UserData {
+    name: string
     token: string
 }
 
@@ -31,6 +32,7 @@ export default function useAuth() {
         setAuthenticated(true)
 
         localStorage.setItem("token", JSON.stringify(data.token))
+        localStorage.setItem("name", JSON.stringify(data.name))
 
         return navigate("/dashboard")
     }

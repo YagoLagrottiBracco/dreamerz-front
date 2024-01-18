@@ -6,7 +6,10 @@ import ReactDOM from "react-dom/client"
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom"
 import BottomBar from "./components/layouts/BottomBar"
 import TopBar from "./components/layouts/TopBar"
+import Dashboard from "./components/pages/Dashboard"
 import Home from "./components/pages/Home"
+import Login from "./components/pages/user/Login"
+import Register from "./components/pages/user/Register"
 import { UserProvider } from "./context/UserContext"
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -20,6 +23,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                     <Container>
                         <Routes>
                             <Route path="/" element={<Home />} />
+                            <Route path="/register" element={<Register />} />
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/dashboard" element={<Dashboard />} />
                         </Routes>
                     </Container>
                 </div>

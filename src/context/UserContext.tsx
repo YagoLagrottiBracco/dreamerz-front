@@ -1,14 +1,21 @@
 import { createContext, ReactNode, useContext } from "react"
 import useAuth from "../hooks/useAuth"
 
-interface AuthContextProps {
-    authenticated: boolean
-    register: (user: unknown) => void
-    logout: () => void
-    login: (user: unknown) => void
+interface User {
+    email: string
+    password: string
 }
 
-const Context = createContext<AuthContextProps | undefined>(undefined)
+interface AuthContextProps {
+    authenticated: boolean
+    register: (user: User) => void
+    logout: () => void
+    login: (user: User) => void
+}
+
+const Context = createContext<
+    AuthContextProps | (() => AuthContextProps) | undefined
+>(undefined)
 
 interface UserProviderProps {
     children: ReactNode
@@ -26,10 +33,12 @@ function UserProvider({ children }: UserProviderProps) {
 
 function useAuthContext(): AuthContextProps {
     const context = useContext(Context)
+
     if (!context) {
         throw new Error("useAuthContext must be used within a UserProvider")
     }
-    return context
+
+    return typeof context === "function" ? context() : context
 }
 
 export { useAuthContext, UserProvider }
