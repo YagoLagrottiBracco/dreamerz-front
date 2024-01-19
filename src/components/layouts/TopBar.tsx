@@ -44,14 +44,14 @@ const TopBar = () => {
                                         </span>
                                     }
                                     id="nav-dropdown">
-                                    <NavDropdown.Item href="#action/3.2">
+                                    <NavDropdown.Item href="/dashboard/user/profile">
                                         Editar Perfil
                                     </NavDropdown.Item>
                                     <NavDropdown.Divider />
-                                    <NavDropdown.Item href="#action/3.1">
+                                    <NavDropdown.Item href="/dashboard/dreams">
                                         Visualizar seus sonhos
                                     </NavDropdown.Item>
-                                    <NavDropdown.Item href="#action/3.1">
+                                    <NavDropdown.Item href="/dashboard/dreams/create">
                                         Criar um novo sonho
                                     </NavDropdown.Item>
                                     <NavDropdown.Divider />

@@ -8,6 +8,9 @@ import BottomBar from "./components/layouts/BottomBar"
 import TopBar from "./components/layouts/TopBar"
 import Dashboard from "./components/pages/Dashboard"
 import Home from "./components/pages/Home"
+import CreateDream from "./components/pages/dream/CreateDream"
+import Dreams from "./components/pages/dream/Dreams"
+import EditDream from "./components/pages/dream/EditDream"
 import Login from "./components/pages/user/Login"
 import Register from "./components/pages/user/Register"
 import { UserProvider } from "./context/UserContext"
@@ -26,6 +29,18 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                             <Route path="/register" element={<Register />} />
                             <Route path="/login" element={<Login />} />
                             <Route path="/dashboard" element={<Dashboard />} />
+                            <Route
+                                path="/dashboard/dreams"
+                                element={<Dreams />}
+                            />
+                            <Route
+                                path="/dashboard/dreams/create"
+                                element={<CreateDream />}
+                            />
+                            <Route
+                                path="/dashboard/dreams/edit/:id"
+                                element={<EditDream />}
+                            />
                         </Routes>
                     </Container>
                 </div>
