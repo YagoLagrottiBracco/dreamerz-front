@@ -1,3 +1,4 @@
+import { ChangeEvent, useEffect, useState } from "react"
 import {
     Button,
     Col,
@@ -10,6 +11,8 @@ import {
     Row,
 } from "react-bootstrap"
 import InputGroupText from "react-bootstrap/esm/InputGroupText"
+import api from "../utils/api"
+import { AxiosRequestConfigWithAuth } from "./pages/dream/CreateDream"
 
 export interface Options {
     label: string
@@ -21,10 +24,69 @@ export interface Options {
     items: { value: string; text: string }[] | null
 }
 
-const Forms = ({ options }: { options: Options[] }) => {
+const Forms = ({
+    options,
+    id,
+    type,
+    idUpdate,
+}: {
+    options: Options[]
+    id: string
+    type: string
+    idUpdate: string
+}) => {
+    const [data, setData] = useState<{ [key: string]: string }>({})
+    const [token] = useState(localStorage.getItem("token") || "")
+
+    function handleChange(
+        e: ChangeEvent<
+            HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+        >
+    ) {
+        const target = e.target as
+            | HTMLInputElement
+            | HTMLSelectElement
+            | HTMLTextAreaElement
+        setData({ ...data, [target.name]: target.value })
+    }
+
+    useEffect(() => {
+        if (idUpdate) {
+            api.get(`/dashboard/${type}/find/${idUpdate}`, {
+                headers: {
+                    Authorization: `Bearer ${JSON.parse(token)}`,
+                },
+            }).then((response) => {
+                if (type === "goals") {
+                    setData(response.data.goal)
+                } else {
+                    setData(response.data.action)
+                }
+            })
+        }
+    }, [idUpdate, token, type])
+
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+
+        const config: AxiosRequestConfigWithAuth = {
+            headers: {
+                Authorization: `Bearer ${JSON.parse(token)}`,
+            },
+        }
+
+        if (!idUpdate) {
+            await api.post(`/dashboard/${type}/${id}`, data, config)
+        } else {
+            await api.patch(`/dashboard/${type}/${idUpdate}`, data, config)
+        }
+
+        window.location.reload()
+    }
+
     return (
         <Container>
-            <Form>
+            <Form onSubmit={handleSubmit}>
                 {options.map((option, index) => (
                     <Row className="my-2" key={index}>
                         <Col>
@@ -37,10 +99,17 @@ const Forms = ({ options }: { options: Options[] }) => {
                                     <FormControl
                                         as={option.type}
                                         placeholder={option.placeholder}
-                                        name={option.name}></FormControl>
+                                        name={option.name}
+                                        onChange={handleChange}
+                                        value={
+                                            data[option.name] || ""
+                                        }></FormControl>
                                 </InputGroup>
                             ) : option.type === "select" ? (
-                                <FormSelect>
+                                <FormSelect
+                                    onChange={handleChange}
+                                    name={option.name}
+                                    value={data[option.name] || ""}>
                                     <option>Selecione...</option>
                                     {option.items!.map((item, index) => (
                                         <option value={item.value} key={index}>
@@ -57,6 +126,8 @@ const Forms = ({ options }: { options: Options[] }) => {
                                         type={option.type}
                                         placeholder={option.placeholder}
                                         name={option.name}
+                                        onChange={handleChange}
+                                        value={data[option.name] || ""}
                                     />
                                 </InputGroup>
                             )}

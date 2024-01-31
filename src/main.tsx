@@ -10,7 +10,6 @@ import Dashboard from "./components/pages/Dashboard"
 import Home from "./components/pages/Home"
 import CreateDream from "./components/pages/dream/CreateDream"
 import Dreams from "./components/pages/dream/Dreams"
-import EditDream from "./components/pages/dream/EditDream"
 import Login from "./components/pages/user/Login"
 import Register from "./components/pages/user/Register"
 import { UserProvider } from "./context/UserContext"
@@ -36,10 +35,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                             <Route
                                 path="/dashboard/dreams/create"
                                 element={<CreateDream />}
-                            />
-                            <Route
-                                path="/dashboard/dreams/edit/:id"
-                                element={<EditDream />}
                             />
                         </Routes>
                     </Container>

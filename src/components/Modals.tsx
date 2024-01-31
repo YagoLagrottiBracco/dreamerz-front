@@ -13,9 +13,20 @@ interface ModalsProps {
     onHide: () => void
     options: Options[]
     name: string
+    id: string
+    type: string
+    idUpdate: string
 }
 
-const Modals: React.FC<ModalsProps> = ({ show, onHide, options, name }) => {
+const Modals: React.FC<ModalsProps> = ({
+    show,
+    onHide,
+    options,
+    name,
+    id,
+    type,
+    idUpdate,
+}) => {
     const [handle, sethandle] = useState(show)
 
     useEffect(() => {
@@ -29,7 +40,7 @@ const Modals: React.FC<ModalsProps> = ({ show, onHide, options, name }) => {
                     <ModalTitle>{name}</ModalTitle>
                 </ModalHeader>
                 <ModalBody>
-                    <Forms options={options}></Forms>
+                    <Forms options={options} id={id} type={type} idUpdate={idUpdate}></Forms>
                 </ModalBody>
             </ModalDialog>
         </Modal>

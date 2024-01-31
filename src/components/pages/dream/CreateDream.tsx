@@ -14,25 +14,51 @@ import {
     Row,
 } from "react-bootstrap"
 import InputGroupText from "react-bootstrap/esm/InputGroupText"
+import { useNavigate } from "react-router-dom"
 import api from "../../../utils/api"
 
-interface Dream {
+export interface Action {
+    _id: string | null | undefined
+    difficulty: string
     name: string
     description: string
 }
 
-interface AxiosRequestConfigWithAuth extends AxiosRequestConfig {
+export interface Goal {
+    _id: string | null | undefined
+    difficulty: string
+    name: string
+    description: string
+    actions?: Action[]
+}
+
+export interface Dream {
+    _id: string | null | undefined
+    name: string
+    description: string
+    goals?: Goal[]
+}
+
+export interface AxiosRequestConfigWithAuth extends AxiosRequestConfig {
     headers?: {
         Authorization?: string
     }
 }
 
 const CreateDream = () => {
-    const [dream, setDream] = useState<Dream>({ name: "", description: "" })
+    const [dream, setDream] = useState<Dream>({
+        _id: null,
+        name: "",
+        description: "",
+    })
     const [token] = useState(localStorage.getItem("token") || "")
+    const navigate = useNavigate()
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-        setDream({ ...dream, [e.target.name]: e.target.value })
+        setDream({
+            ...dream,
+            [e.target.name]: e.target.value,
+        })
     }
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -44,9 +70,9 @@ const CreateDream = () => {
             },
         }
 
-        const response = await api.post("/dashboard/dreams", dream, config)
+        await api.post("/dashboard/dreams", dream, config)
 
-        console.log(response)
+        navigate("/dashboard/dreams")
     }
 
     return (
