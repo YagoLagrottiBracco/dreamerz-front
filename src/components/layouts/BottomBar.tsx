@@ -1,7 +1,7 @@
 import { faHeart } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Component } from "react"
-import { Col, NavLink, Navbar, NavbarText, Row } from "react-bootstrap"
+import { Col, Navbar, NavbarText, Row } from "react-bootstrap"
 
 export default class BottomBar extends Component {
     render() {
@@ -20,11 +20,17 @@ export default class BottomBar extends Component {
                             />{" "}
                             by Yago Lagrotti Bracco
                         </NavbarText>
-                        <NavLink href="">
-                            <NavbarText className="text-light">
-                                Clique aqui para ver o repositório
-                            </NavbarText>
-                        </NavLink>
+                        <br />
+                        <NavbarText className="text-light">
+                            Clique no link para ver o repositório de{" "}
+                            <a href="https://github.com/YagoLagrottiBracco/dreamerz-front">
+                                FRONT
+                            </a>{" "}
+                            ou{" "}
+                            <a href="https://github.com/YagoLagrottiBracco/dreamerz-api">
+                                API
+                            </a>
+                        </NavbarText>
                     </Col>
                 </Row>
             </Navbar>
