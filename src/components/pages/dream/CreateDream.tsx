@@ -70,7 +70,11 @@ const CreateDream = () => {
             },
         }
 
-        await api.post("/dashboard/dreams", dream, config)
+        await api.post(
+            `${import.meta.env.VITE_APP_API_URL}/dashboard/dreams`,
+            dream,
+            config
+        )
 
         navigate("/dashboard/dreams")
     }

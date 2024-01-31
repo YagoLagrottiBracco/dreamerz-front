@@ -52,11 +52,16 @@ const Forms = ({
 
     useEffect(() => {
         if (idUpdate) {
-            api.get(`/dashboard/${type}/find/${idUpdate}`, {
-                headers: {
-                    Authorization: `Bearer ${JSON.parse(token)}`,
-                },
-            }).then((response) => {
+            api.get(
+                `${
+                    import.meta.env.VITE_APP_API_URL
+                }/dashboard/${type}/find/${idUpdate}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${JSON.parse(token)}`,
+                    },
+                }
+            ).then((response) => {
                 if (type === "goals") {
                     setData(response.data.goal)
                 } else {
@@ -76,9 +81,19 @@ const Forms = ({
         }
 
         if (!idUpdate) {
-            await api.post(`/dashboard/${type}/${id}`, data, config)
+            await api.post(
+                `${import.meta.env.VITE_APP_API_URL}/dashboard/${type}/${id}`,
+                data,
+                config
+            )
         } else {
-            await api.patch(`/dashboard/${type}/${idUpdate}`, data, config)
+            await api.patch(
+                `${
+                    import.meta.env.VITE_APP_API_URL
+                }/dashboard/${type}/${idUpdate}`,
+                data,
+                config
+            )
         }
 
         window.location.reload()

@@ -140,17 +140,20 @@ const Dreams = () => {
     }
 
     const handleDelete = async (id: string, model: string) => {
-        api.delete(`/dashboard/${model}/${id}`, {
-            headers: {
-                Authorization: `Bearer ${JSON.parse(token)}`,
-            },
-        }).then(() => {
+        api.delete(
+            `${import.meta.env.VITE_APP_API_URL}/dashboard/${model}/${id}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${JSON.parse(token)}`,
+                },
+            }
+        ).then(() => {
             window.location.reload()
         })
     }
 
     useEffect(() => {
-        api.get("/dashboard/dreams", {
+        api.get(`${import.meta.env.VITE_APP_API_URL}/dashboard/dreams`, {
             headers: {
                 Authorization: `Bearer ${JSON.parse(token)}`,
             },

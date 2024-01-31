@@ -21,9 +21,11 @@ export default function useAuth() {
     }, [])
 
     async function register(user: unknown) {
-        const data = await api.post("/register", user).then((response) => {
-            return response.data
-        })
+        const data = await api
+            .post(`${import.meta.env.VITE_APP_API_URL}/register`, user)
+            .then((response) => {
+                return response.data
+            })
 
         await authUser(data)
     }
@@ -38,9 +40,11 @@ export default function useAuth() {
     }
 
     async function login(user: unknown) {
-        const data = await api.post("/login", user).then((response) => {
-            return response.data
-        })
+        const data = await api
+            .post(`${import.meta.env.VITE_APP_API_URL}/login`, user)
+            .then((response) => {
+                return response.data
+            })
 
         await authUser(data)
     }
