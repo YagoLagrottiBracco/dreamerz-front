@@ -14,6 +14,7 @@ import {
 } from "react-bootstrap"
 import InputGroupText from "react-bootstrap/esm/InputGroupText"
 import { useAuthContext } from "../../../context/UserContext"
+import { useCustomToast } from "../../../hooks/toast"
 
 interface User {
     email: string
@@ -23,14 +24,28 @@ interface User {
 const Register = () => {
     const [user, setUser] = useState<User>({ email: "", password: "" })
     const { register } = useAuthContext()
+    const { showCustomToast } = useCustomToast()
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         setUser({ ...user, [e.target.name]: e.target.value })
     }
 
-    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        register(user)
+
+        try {
+            await register(user)
+
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (errors: any) {
+            if (errors.name && errors.name === "AxiosError") {
+                showCustomToast("danger", errors.response.data.message)
+            } else {
+                errors.response.data.errors.map((error: string[]) => {
+                    showCustomToast("danger", Object.values(error)[0])
+                })
+            }
+        }
     }
 
     return (
@@ -52,6 +67,7 @@ const Register = () => {
                                     placeholder="João da Silva"
                                     name="name"
                                     onChange={handleChange}
+                                    required
                                 />
                             </InputGroup>
                         </Row>
@@ -66,6 +82,7 @@ const Register = () => {
                                     placeholder="email@example.com"
                                     name="email"
                                     onChange={handleChange}
+                                    required
                                 />
                             </InputGroup>
                         </Row>
@@ -80,6 +97,7 @@ const Register = () => {
                                     placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;"
                                     name="password"
                                     onChange={handleChange}
+                                    required
                                 />
                             </InputGroup>
                             <small className="form-text">
@@ -98,6 +116,7 @@ const Register = () => {
                                     placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;"
                                     name="confirmPassword"
                                     onChange={handleChange}
+                                    required
                                 />
                             </InputGroup>
                         </Row>

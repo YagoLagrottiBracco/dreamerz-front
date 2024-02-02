@@ -17,6 +17,7 @@ import {
 import InputGroupText from "react-bootstrap/esm/InputGroupText"
 import { Link } from "react-router-dom"
 import { useAuthContext } from "../../../context/UserContext"
+import { useCustomToast } from "../../../hooks/toast"
 
 interface User {
     email: string
@@ -26,14 +27,22 @@ interface User {
 const Login = () => {
     const [user, setUser] = useState<User>({ email: "", password: "" })
     const { login } = useAuthContext()
+    const { showCustomToast } = useCustomToast()
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         setUser({ ...user, [e.target.name]: e.target.value })
     }
 
-    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        login(user)
+
+        try {
+            await login(user)
+
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            showCustomToast("danger", error.response.data.message)
+        }
     }
 
     return (
@@ -63,6 +72,7 @@ const Login = () => {
                                     placeholder="email@example.com"
                                     name="email"
                                     onChange={handleChange}
+                                    required
                                 />
                             </InputGroup>
                         </Row>
@@ -77,6 +87,7 @@ const Login = () => {
                                     placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;"
                                     name="password"
                                     onChange={handleChange}
+                                    required
                                 />
                             </InputGroup>
                             <small className="form-text mt-4">

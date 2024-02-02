@@ -22,6 +22,7 @@ export interface Action {
     difficulty: string
     name: string
     description: string
+    doneIn: string
 }
 
 export interface Goal {
@@ -94,6 +95,7 @@ const CreateDream = () => {
                             <InputGroup>
                                 <InputGroupText>nome</InputGroupText>
                                 <FormControl
+                                    required
                                     type="text"
                                     placeholder="Construir casa"
                                     name="name"
@@ -108,6 +110,7 @@ const CreateDream = () => {
                             <InputGroup>
                                 <InputGroupText>descrição</InputGroupText>
                                 <FormControl
+                                    required
                                     as="textarea"
                                     placeholder="Construir a minha própria moradia"
                                     name="description"

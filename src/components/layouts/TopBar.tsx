@@ -22,7 +22,7 @@ const TopBar = () => {
     return (
         <Navbar expand="lg" className="bg-primary bg-gradient" fixed="top">
             <Container>
-                <NavbarBrand href="#home" className="text-light">
+                <NavbarBrand href="/" className="text-light">
                     <FontAwesomeIcon
                         icon={faBullseye}
                         className="text-danger pb-1"

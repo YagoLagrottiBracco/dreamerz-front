@@ -112,6 +112,7 @@ const Forms = ({
                                         {option.title}
                                     </InputGroupText>
                                     <FormControl
+                                        required
                                         as={option.type}
                                         placeholder={option.placeholder}
                                         name={option.name}
@@ -122,6 +123,7 @@ const Forms = ({
                                 </InputGroup>
                             ) : option.type === "select" ? (
                                 <FormSelect
+                                    required
                                     onChange={handleChange}
                                     name={option.name}
                                     value={data[option.name] || ""}>
@@ -138,6 +140,7 @@ const Forms = ({
                                         {option.title}
                                     </InputGroupText>
                                     <FormControl
+                                        required
                                         type={option.type}
                                         placeholder={option.placeholder}
                                         name={option.name}

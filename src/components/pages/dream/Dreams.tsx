@@ -4,11 +4,13 @@ import {
     faTrashCan,
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import moment from "moment"
 import { useEffect, useState } from "react"
 import {
     Button,
     Card,
     CardBody,
+    CardFooter,
     CardHeader,
     Col,
     Container,
@@ -396,6 +398,23 @@ const Dreams = () => {
                                                                                                     }
                                                                                                 </span>
                                                                                             </CardBody>
+                                                                                            <CardFooter>
+                                                                                                O
+                                                                                                prazo
+                                                                                                limite
+                                                                                                para
+                                                                                                executar
+                                                                                                se
+                                                                                                encerra
+                                                                                                em:{" "}
+                                                                                                <strong>
+                                                                                                    {moment(
+                                                                                                        action.doneIn
+                                                                                                    ).format(
+                                                                                                        "DD/MM/YYYY"
+                                                                                                    )}
+                                                                                                </strong>
+                                                                                            </CardFooter>
                                                                                         </Card>
                                                                                     )
                                                                                 )}

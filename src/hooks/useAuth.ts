@@ -52,6 +52,7 @@ export default function useAuth() {
     async function logout() {
         setAuthenticated(false)
         localStorage.removeItem("token")
+        localStorage.removeItem("name")
         api.defaults.headers.Authorization = ""
         navigate("/")
     }
